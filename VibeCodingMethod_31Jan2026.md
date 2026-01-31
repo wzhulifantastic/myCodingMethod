@@ -45,67 +45,67 @@
 flowchart TB
     subgraph Setup["🚀 阶段0: 环境初始化<br/>一次性设置，持续维护"]
         direction TB
-        S1[创建.clinerules<br/>全局AI行为约束] --> S2[创建skills/目录<br/>技术栈锁定]
-        S2 --> S3[初始化active_context.md<br/>上下文锚点]
-        S3 --> S4[配置Git工作流<br/>分支策略]
+        S1["创建.clinerules<br/>全局AI行为约束"] --> S2["创建skills/目录<br/>技术栈锁定"]
+        S2 --> S3["初始化active_context.md<br/>上下文锚点"]
+        S3 --> S4["配置Git工作流<br/>分支策略"]
     end
     
     subgraph Research["🔍 阶段1: 调研与约束定义<br/>人工主导，AI辅助"]
         direction TB
-        R1[人工调研<br/>搜索资料/库/最佳实践] --> R2[定义约束式规范<br/>目标+禁止+边界]
-        R2 --> R3[AI提出2-3个方案<br/>人工选择最佳]
-        R3 --> R4[生成AGENTS.md<br/>跨平台规范]
-        R4 --> R5[更新active_context.md<br/>标记阶段完成]
+        R1["人工调研<br/>搜索资料/库/最佳实践"] --> R2["定义约束式规范<br/>目标+禁止+边界"]
+        R2 --> R3["AI提出2-3个方案<br/>人工选择最佳"]
+        R3 --> R4["生成AGENTS.md<br/>跨平台规范"]
+        R4 --> R5["更新active_context.md<br/>标记阶段完成"]
     end
     
     subgraph PRD["📝 阶段2: 约束式PRD<br/>人工意图+AI归纳"]
         direction TB
-        P1[人工撰写核心意图<br/>为什么/做什么/不做什么] --> P2[AI归纳约束式PRD<br/>非详细文档]
-        P2 --> P3[定义模块边界<br/>文件所有权分配]
-        P3 --> P4[更新active_context.md<br/>标记阶段完成]
+        P1["人工撰写核心意图<br/>为什么/做什么/不做什么"] --> P2["AI归纳约束式PRD<br/>非详细文档"]
+        P2 --> P3["定义模块边界<br/>文件所有权分配"]
+        P3 --> P4["更新active_context.md<br/>标记阶段完成"]
     end
     
     subgraph Planning["📋 阶段3: 规划与分配<br/>Plan Mode + 分支隔离"]
         direction TB
-        PL1[启用Plan Mode<br/>生成Task Artifacts] --> PL2[拆解Task清单<br/>分配Agent]
-        PL2 --> PL3[创建隔离工作树<br/>每个Agent独立分支]
-        PL3 --> PL4[生成TDD文档<br/>测试先行]
-        PL4 --> PL5[更新active_context.md<br/>标记阶段完成]
+        PL1["启用Plan Mode<br/>生成Task Artifacts"] --> PL2["拆解Task清单<br/>分配Agent"]
+        PL2 --> PL3["创建隔离工作树<br/>每个Agent独立分支"]
+        PL3 --> PL4["生成TDD文档<br/>测试先行"]
+        PL4 --> PL5["更新active_context.md<br/>标记阶段完成"]
     end
     
     subgraph Dev["💻 阶段4: 并行开发<br/>TDD + 上下文维护"]
         direction TB
-        D1[Agent读取active_context.md<br/>确认阶段和任务] --> D2[编码前运行测试<br/>预期失败]
-        D2 --> D3{测试通过?}
-        D3 -->|否| D4[按约束优化代码<br/>AI自主决策]
-        D4 --> D5{遇到重大决策?}
-        D5 -->|是| D6[停止并询问人类<br/>等待决策]
+        D1["Agent读取active_context.md<br/>确认阶段和任务"] --> D2["编码前运行测试<br/>预期失败"]
+        D2 --> D3{"测试通过?"}
+        D3 -->|否| D4["按约束优化代码<br/>AI自主决策"]
+        D4 --> D5{"遇到重大决策?"}
+        D5 -->|是| D6["停止并询问人类<br/>等待决策"]
         D5 -->|否| D2
-        D3 -->|是| D7[提交代码<br/>更新上下文]
-        D7 --> D8{还有更多Task?}
+        D3 -->|是| D7["提交代码<br/>更新上下文"]
+        D7 --> D8{"还有更多Task?"}
         D8 -->|是| D1
-        D8 -->|否| D9[创建PR<br/>等待审查]
+        D8 -->|否| D9["创建PR<br/>等待审查"]
     end
     
     subgraph Review["✅ 阶段5: 审查与合并<br/>人工把关，AI辅助"]
         direction TB
-        R1[AI生成审查报告<br/>检查约束/测试/边界] --> R2[人工快速审阅<br/>关键逻辑+安全]
-        R2 --> R3{审查通过?}
-        R3 -->|否| R4[返回修改<br/>更新代码]
-        R4 --> R1
-        R3 -->|是| R5[合并到主分支<br/>更新active_context.md]
+        RV1["AI生成审查报告<br/>检查约束/测试/边界"] --> RV2["人工快速审阅<br/>关键逻辑+安全"]
+        RV2 --> RV3{"审查通过?"}
+        RV3 -->|否| RV4["返回修改<br/>更新代码"]
+        RV4 --> RV1
+        RV3 -->|是| RV5["合并到主分支<br/>更新active_context.md"]
     end
     
     subgraph Doc["📖 阶段6: 架构文档生成<br/>AI反向解释代码"]
         direction TB
-        DOC1[AI生成架构说明<br/>文件逻辑+数据流] --> DOC2[生成开发文档<br/>项目信息+扩展指南]
-        DOC2 --> DOC3[更新active_context.md<br/>标记阶段完成]
+        DOC1["AI生成架构说明<br/>文件逻辑+数据流"] --> DOC2["生成开发文档<br/>项目信息+扩展指南"]
+        DOC2 --> DOC3["更新active_context.md<br/>标记阶段完成"]
     end
     
     subgraph Iter["🔄 阶段7: 迭代维护<br/>持续优化循环"]
         direction TB
-        I1[人工验收功能<br/>微调细节] --> I2[发现新约束/问题<br/>更新skills/]
-        I2 --> I3[版本迭代规划<br/>回到阶段1]
+        I1["人工验收功能<br/>微调细节"] --> I2["发现新约束/问题<br/>更新skills/"]
+        I2 --> I3["版本迭代规划<br/>回到阶段1"]
     end
     
     Setup --> Research --> PRD --> Planning --> Dev --> Review --> Doc --> Iter
@@ -117,17 +117,18 @@ flowchart TB
     classDef decision fill:#ffd43b,stroke:#f08c00,stroke-width:3px,color:#000
     
     %% 应用样式
-    class R1,R2,R3,P1 humanFocus
-    class S1,S2,S3,S4,PL3,D7,R5,DOC3 fileArtifact
-    class D3,D5,R3 decision
-    class D1,D2,D4,D6,D8,D9,R1,R4,DOC1,DOC2,I1,I2,I3 aiWork
+    class R1,R2,R3,P1,RV2 humanFocus
+    class S1,S2,S3,S4,PL3,D7,R5,RV5,DOC3 fileArtifact
+    class D3,D5,RV3 decision
+    class D1,D2,D4,D6,D8,D9,R4,RV1,RV4,DOC1,DOC2,I1,I2,I3 aiWork
     
-    %% 特殊标记人类介入节点
+    %% 特殊标记人工节点
     style R1 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
     style R2 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
     style R3 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
     style P1 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
     style D6 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
+    style RV2 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
 ```
 
 ### 流程图阅读指南
@@ -212,7 +213,7 @@ flowchart LR
 - ❌ 遇到决策点擅自决定
 ```
 
-**步骤2：创建 `skills/` 技术栈锁定目录**
+**步骤2：创建 `skills/` 技术栈锁定目录（前端和后端两份示例，你可以根据项目给出更多的skills文件）**
 
 ```markdown
 # skills/frontend-react.md
@@ -232,25 +233,27 @@ version: 1.0
 - React Router v6（路由管理）
 
 ## 文件结构约束（必须遵守）
-```
 src/
-  components/          # UI组件
-    ui/               # 基础UI组件（Button, Input等）
-    forms/            # 表单相关组件
-    *.tsx             # 组件文件
-    *.test.tsx        # 同目录测试文件（必须存在）
-  hooks/              # 自定义Hooks
-    *.ts
-    *.test.ts
-  lib/                # 工具函数
-    api.ts            # useApiRequest() 必须复用，禁止重新实现fetch
-    utils.ts          # formatDate(), formatCurrency() 必须复用
-    constants.ts      # 常量定义
-  store/              # Zustand stores
-    *.ts
-  types/              # TypeScript类型定义
-    *.ts
-```
+├─ components/                     # UI 组件
+│  ├─ ui/                          # 基础组件（Button、Input 等）
+│  ├─ forms/                       # 表单相关组件
+│  ├─ *.tsx                        # 组件实现文件
+│  └─ *.test.tsx                   # 每个组件必须有同目录测试
+│
+├─ hooks/                          # 自定义 Hooks
+│  ├─ *.ts
+│  └─ *.test.ts                    # Hooks 必须配套测试
+│
+├─ lib/                            # 工具与基础能力
+│  ├─ api.ts                       # useApiRequest() 必须复用，禁止重复实现 fetch
+│  ├─ utils.ts                     # formatDate()、formatCurrency() 等通用工具
+│  └─ constants.ts                 # 全局常量定义
+│
+├─ store/                          # Zustand 状态管理
+│  └─ *.ts
+│
+└─ types/                          # TypeScript 类型定义
+   └─ *.ts
 
 ## 强制规则（代码必须满足）
 1. 所有组件必须是函数组件，使用TypeScript
@@ -296,24 +299,27 @@ version: 1.0
 - JWT（token管理）
 - Jest（测试框架）
 
-## 文件结构约束
-```
-src/
-  routes/             # API路由
-    *.ts
-    *.test.ts
-  controllers/        # 业务逻辑
-    *.ts
-  models/             # 数据模型（Prisma）
-    schema.prisma
-  middleware/         # 中间件
-    auth.ts           # 认证中间件（必须复用）
-    errorHandler.ts   # 错误处理（必须复用）
-  utils/              # 工具函数
-    *.ts
-  types/              # TypeScript类型
-    *.ts
-```
+## 文件结构约束（必须遵守）
+src
+├─ routes/                         # API 路由
+│  ├─ *.ts
+│  └─ *.test.ts                    # 路由必须有同目录测试
+│
+├─ controllers/                    # 业务逻辑层
+│  └─ *.ts
+│
+├─ models/                         # 数据模型（Prisma）
+│  └─ schema.prisma
+│
+├─ middleware/                     # 中间件
+│  ├─ auth.ts                      # 认证中间件（必须复用）
+│  └─ errorHandler.ts              # 错误处理中间件（必须复用）
+│
+├─ utils/                          # 工具函数
+│  └─ *.ts
+│
+└─ types/                          # TypeScript 类型定义
+   └─ *.ts
 
 ## 强制规则
 1. 所有API必须返回统一格式：`{success: boolean, data?: any, error?: string}`
@@ -371,7 +377,7 @@ src/
 | Agent-B (Trae) | `src/api/routes/`, `src/controllers/` | 待分配 |
 
 ## 活跃分支
-- main: 主分支（保护）
+- main: 主分支（保护，不允许在未经人类确认的情况下向该分支提交内容）
 ```
 
 **步骤4：配置Git工作流**
@@ -429,7 +435,7 @@ flowchart TB
         C2 --> C3[填写硬性约束<br/>必须满足的条件]
         C3 --> C4[填写禁止事项<br/>绝对不能做]
         C4 --> C5[填写模块边界<br/>Agent分工]
-        C5 --> C6[标记决策点<br/>[DECISION_REQUIRED]]
+        C5 --> C6["标记决策点<br/>&#91;DECISION_REQUIRED&#93;"]
     end
     
     subgraph AIAssist["🤖 AI辅助"]
