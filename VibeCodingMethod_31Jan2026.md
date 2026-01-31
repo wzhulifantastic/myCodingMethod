@@ -435,7 +435,7 @@ flowchart TB
         C2 --> C3[填写硬性约束<br/>必须满足的条件]
         C3 --> C4[填写禁止事项<br/>绝对不能做]
         C4 --> C5[填写模块边界<br/>Agent分工]
-        C5 --> C6["标记决策点<br/>&#91;DECISION_REQUIRED&#93;"]
+        C5 --> C6["标记决策点<br/>#91;DECISION_REQUIRED#93;"]
     end
     
     subgraph AIAssist["🤖 AI辅助"]
