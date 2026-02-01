@@ -476,18 +476,19 @@ flowchart TB
 2. 读取 `docs/SPEC.md` → 确认业务意图与技术约束
 3. 读取 `docs/skills/*.md` → 确认技术栈约束
 4. 读取 `docs/tasks/todo_agent_n.md` → 确认你的任务清单
+5. 创建分支，分支名类似Git 提交规范中的示例要求。
 
 ### 执行任务
-5. 运行测试 → 预期失败（红）
-6. 编写代码 → 满足约束的最简实现
-7. 运行测试 → 必须通过（绿）
-8. Refactor → 不违反约束的前提下优化
-9. Git Commit → 遵循提交规范
+6. 运行测试 → 预期失败（红）
+7. 编写代码 → 满足约束的最简实现
+8. 运行测试 → 必须通过（绿）
+9. Refactor → 不违反约束的前提下优化
+10. Git Commit → 遵循提交规范
 
 ### 完成任务
-10. 更新 `docs/tasks/todo_agent_n.md` → 勾选 [x] 并备注 Commit Hash
-11. 如果 100% 完成当前 Task → 生成 `[CONTEXT_UPDATE_PROPOSAL]`
-12. 等待人类确认 → 人类批准后由人类更新 `docs/active_context.md`
+11. 更新 `docs/tasks/todo_agent_n.md` → 勾选 [x] 并备注 Commit Hash
+12. 如果 100% 完成当前 Task → 生成 `[CONTEXT_UPDATE_PROPOSAL]`
+13. 等待人类确认 → 人类批准后由人类更新 `docs/active_context.md`
 
 ## 决策升级协议
 
@@ -498,7 +499,7 @@ flowchart TB
 - 测试无法通过，且需要修改约束才能解决
 
 **报告格式**：
-```
+
 [DECISION_REQUIRED]
 - 问题：[描述冲突]
 - 当前约束：[引用相关约束]
@@ -506,7 +507,7 @@ flowchart TB
   A. [方案及影响]
   B. [方案及影响]
 - 建议：[你的推荐]
-```
+
 
 ## 完成定义（DoD）
 
@@ -524,17 +525,17 @@ flowchart TB
 
 ## Git 提交规范
 
-```
+
 <type>(<scope>): <description> [Task-X]
 
 - 详细变更点1
 - 详细变更点2
 
 Ref: docs/skills/xxx.md（如适用）
-```
+
 
 示例：
-```
+
 feat(auth): add login form validation [Task-3]
 
 - 实现邮箱格式验证
@@ -542,7 +543,7 @@ feat(auth): add login form validation [Task-3]
 - 添加单元测试，覆盖率 85%
 
 Ref: docs/skills/frontend-react.md
-```
+
 
 ## 沟通风格
 
