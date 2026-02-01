@@ -52,10 +52,11 @@ flowchart TB
     
     subgraph Research["🔍 阶段1: 调研与约束定义<br/>人工主导，AI辅助"]
         direction TB
-        R1["人工调研<br/>搜索资料/库/最佳实践"] --> R2["定义约束式规范<br/>目标+禁止+边界"]
+        R1["人工调研<br/>搜索资料/库/最佳实践"] --> R2["定义约束式规范constraints.md<br/>目标+禁止+边界"]
         R2 --> R3["AI提出2-3个方案<br/>人工选择最佳"]
-        R3 --> R4["生成AGENTS.md<br/>跨平台规范"]
-        R4 --> R5["更新active_context.md<br/>标记阶段完成"]
+        R3 --> R4["创建ADR目录<br/>记录架构决策"]
+        R4 --> R5["生成AGENTS.md<br/>跨平台规范"]
+        R5 --> R6["更新active_context.md<br/>标记阶段完成"]
     end
     
     subgraph PRD["📝 阶段2: 约束式PRD<br/>人工意图+AI归纳"]
@@ -118,9 +119,9 @@ flowchart TB
     
     %% 应用样式
     class R1,R2,R3,P1,RV2 humanFocus
-    class S1,S2,S3,S4,PL3,D7,R5,RV5,DOC3 fileArtifact
+    class S1,S2,S3,S4,R5,R6,P4,PL3,PL5,D7,RV5,DOC3 fileArtifact
     class D3,D5,RV3 decision
-    class D1,D2,D4,D6,D8,D9,R4,RV1,RV4,DOC1,DOC2,I1,I2,I3 aiWork
+    class R4,P2,P3,PL1,PL2,PL4,D1,D2,D4,D6,D8,D9,RV1,RV4,DOC1,DOC2,I1,I2,I3 aiWork
     
     %% 特殊标记人工节点
     style R1 fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
@@ -422,45 +423,61 @@ git commit -m "chore: 初始化项目，添加AI开发规范"
 
 ```mermaid
 flowchart TB
-    subgraph HumanWork["🧑‍💻 人类工作（必须）"]
+    subgraph Step1["步骤1：人工调研"]
         direction TB
-        H1[搜索最新资料<br/>Google/知乎/GitHub] --> H2[查看趋势库<br/>GitHub Trending]
-        H2 --> H3[阅读官方文档<br/>确认最佳实践]
-        H3 --> H4[整理调研结果<br/>记录关键发现]
+        S1A[搜索最新资料<br/>Google/知乎/GitHub] --> S1B[查看趋势库<br/>GitHub Trending]
+        S1B --> S1C[阅读官方文档<br/>确认最佳实践]
+        S1C --> S1D[整理调研笔记<br/>记录关键发现]
     end
     
-    subgraph DefineConstraints["📝 定义约束"]
+    subgraph Step2["步骤2：定义约束式规范"]
         direction TB
-        C1[创建 constraints.md] --> C2[填写目标<br/>要做什么]
-        C2 --> C3[填写硬性约束<br/>必须满足的条件]
-        C3 --> C4[填写禁止事项<br/>绝对不能做]
-        C4 --> C5[填写模块边界<br/>Agent分工]
-        C5 --> C6["标记决策点<br/>[DECISION_REQUIRED]"]
+        S2A[创建constraints.md] --> S2B[填写目标<br/>要做什么]
+        S2B --> S2C[填写硬性约束<br/>必须满足的条件]
+        S2C --> S2D[填写禁止事项<br/>绝对不能做]
+        S2D --> S2E[填写模块边界<br/>Agent分工]
+        S2E --> S2F["标记决策点<br/>[DECISION_REQUIRED]"]
     end
     
-    subgraph AIAssist["🤖 AI辅助"]
+    subgraph Step3["步骤3：AI辅助方案（AI辅助）"]
         direction TB
-        A1[人类提供约束] --> A2[AI提出2-3个方案]
-        A2 --> A3[列出每个方案<br/>优缺点+风险]
-        A3 --> A4[人类选择最佳方案]
+        S3A[人类提供约束] --> S3B[AI提出2-3个方案]
+        S3B --> S3C[列出优缺点<br/>风险分析]
+        S3C --> S3D[人类选择最佳方案]
     end
     
-    subgraph GenerateDocs["📄 生成规范"]
+    subgraph Step4["步骤4：记录架构决策"]
         direction TB
-        G1[创建 AGENTS.md<br/>跨平台规范] --> G2[记录技术决策<br/>ADR格式]
-        G2 --> G3[定义Agent分工<br/>文件所有权]
-        G3 --> G4[更新 active_context.md]
+        S4A[创建docs/adr/目录] --> S4B[ADR-001: 技术方案选择]
+        S4B --> S4C[ADR-002: Token策略等]
+        S4C --> S4D[轻量级格式<br/>状态+决策+后果]
     end
     
-    HumanWork --> DefineConstraints --> AIAssist --> GenerateDocs
+    subgraph Step5["步骤5：生成AI操作手册"]
+        direction TB
+        S5A[创建AGENTS.md<br/>AI操作指南] --> S5B[定义Read-Write-Verify协议]
+        S5B --> S5C[定义Agent分工<br/>目录所有权]
+        S5C --> S5D["定义决策升级协议<br/>[DECISION_REQUIRED]"]
+        S5D --> S5E[定义DoD完成标准]
+        S5E --> S5F[引用skills/<br/>不重复技术约束]
+    end
     
-    classDef humanStep fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px,color:#fff
-    classDef aiStep fill:#4dabf7,stroke:#1971c2,stroke-width:2px,color:#fff
-    classDef fileStep fill:#69db7c,stroke:#2b8a3e,stroke-width:2px,color:#000
+    subgraph Step6["步骤6：更新上下文"]
+        direction TB
+        S6A[更新active_context.md] --> S6B[标记阶段1完成]
+        S6B --> S6C[记录ADR引用<br/>不重复内容]
+        S6C --> S6D[标记待决策项状态]
+    end
     
-    class H1,H2,H3,H4,C1,C2,C3,C4,C5,C6,A4 humanStep
-    class A1,A2,A3 aiStep
-    class G1,G2,G3,G4 fileStep
+    Step1 --> Step2 --> Step3 --> Step4 --> Step5 --> Step6
+    
+    classDef humanMust fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px,color:#fff
+    classDef aiAssist fill:#4dabf7,stroke:#1971c2,stroke-width:2px,color:#fff
+    classDef outputFile fill:#69db7c,stroke:#2b8a3e,stroke-width:3px,color:#000
+    
+    class S1A,S1B,S1C,S1D,S2A,S2B,S2C,S2D,S2E,S2F,S3D,S4A,S4B,S4C,S4D,S5A,S5B,S5C,S5D,S5E,S5F,S6A,S6B,S6C,S6D humanMust
+    class S3A,S3B,S3C aiAssist
+    class S4B,S4C,S5A,S6A outputFile
 ```
 
 #### 分步操作详解
@@ -589,7 +606,47 @@ AI可能返回：
 3. **Token过期**：Access 15分钟，Refresh 7天
 ```
 
-**步骤4：人工选择，生成AGENTS.md**
+**步骤4：创建ADR目录，以便记录未来架构决策(两个示例)**
+```markdown
+# 创建独立的ADR目录，不要写在AGENTS.md里：
+mkdir -p docs/adr
+```
+
+```markdown
+# docs/adr/ADR-001-authentication.md
+
+## 状态
+已接受 (2026-02-01)
+
+## 背景
+需要选择用户认证方案，约束见 ../../constraints.md
+
+## 决策
+使用 JWT (Access + Refresh Token)
+
+## 原因
+- 满足无状态需求，易于水平扩展
+- 不引入 Redis 依赖（避免违反技术栈锁定）
+
+## 后果
+- 需要处理 token 刷新逻辑（已规划在 Task List 中）
+- Refresh Token 必须包含密码版本字段
+```
+
+```markdown
+# docs/adr/ADR-002-token-expiry.md
+
+## 状态
+已接受 (2026-02-01)
+
+## 决策
+Access Token: 15分钟, Refresh Token: 7天
+
+## 原因
+平衡安全性和用户体验
+```
+
+**步骤5：根据人工选择方案，生成AGENTS.md**
 
 ```markdown
 # AGENTS.md - 跨平台AI规范
@@ -598,47 +655,166 @@ AI可能返回：
 ## 项目概述
 任务管理应用（Task Manager），采用React + Node.js技术栈
 
-## 技术决策记录（ADR）
+## 版本号
+1.0
 
-### ADR-001: 认证方案选择
-- **决策**：使用JWT（Access + Refresh Token）
-- **日期**：2026-02-01
-- **理由**：满足无状态需求，易于水平扩展
-- **风险**：需处理token刷新逻辑（已在Task List中规划）
-- **替代方案**：Session + Redis（因需要Redis依赖而否决）
+## 最后更新日期
+01 Feb 2026
 
-### ADR-002: Token过期策略
-- **决策**：Access Token 15分钟，Refresh Token 7天
-- **理由**：平衡安全性和用户体验
-- **实现**：Refresh Token包含密码版本字段，修改密码后失效
+## 该文件目的
+让 AI 在这个项目中高效协作
 
-## 全局约束（所有Agent必须遵守）
-- 严格遵循 `skills/frontend-react.md` 和 `skills/backend-node.md`
-- 每次编码前读取 `active_context.md`
-- 测试覆盖率不得低于80%
-- 遇到 [DECISION_REQUIRED] 必须停止询问
+## 1. Role & Core Mandates（角色与核心准则）
 
-## Agent分工与文件所有权
+**Role**: 你是专业的全栈工程师，在**约束驱动**的规范下开发 Task Manager。
 
-### Agent-A (Frontend Auth) - Cline
-- **目录所有权**：`src/auth/`, `src/components/auth/`
-- **禁止**：修改 `src/api/` 目录
-- **任务**：登录表单、token管理、路由守卫
-- **当前分支**：`agent-a/auth-login`
+**Core Mandates**（必须遵守）：
+1.  **约束优先**: 先读 `constraints.md` 和 `skills/.md`（根据你的任务要求），再写代码。禁止引入未定义的技术。
+2.  **上下文锚定**: 每次回答前必须读取 `active_context.md`，确认当前阶段和任务。
+3.  **测试先行**: 任何代码提交前必须通过单元测试（覆盖率>80%）。先跑测试，后写代码，再跑测试。
+4.  **模块化隔离**: 严格遵守文件所有权，禁止修改非分配目录。
+5.  **决策升级**: 遇到 `[DECISION_REQUIRED]` 必须停止，禁止擅自决定。
 
-### Agent-B (Backend API) - Trae
-- **目录所有权**：`src/api/routes/auth/`, `src/controllers/auth/`
-- **禁止**：修改前端路由逻辑
-- **任务**：登录接口、token生成、密码加密
-- **当前分支**：`agent-b/api-login`
+## 2. Must-Read Files（必读文件清单）
 
-## 决策点（遇到时必须停止询问）
-- [DECISION_REQUIRED] 当发现约束之间存在冲突时
-- [DECISION_REQUIRED] 当需要引入新的npm包时
-- [DECISION_REQUIRED] 当发现skills/中未定义的技术方案时
+**开始任何任务前，必须按顺序阅读**：
+1.  `active_context.md` - 当前阶段、进行中的任务、阻碍
+2.  `constraints.md` - 本项目的目标、硬性约束、禁止事项
+3.  `skills/*.md` - 技术栈锁定
+4.  `AGENTS.md` (本文件) - 你的工作协议
+5.  （如果有）`tdd/task-xxx.md` - 当前任务的测试清单
+
+**禁止行为**: 不读上下文直接开始编码。
+
+## 3. Operational Methodology（操作方法论）
+
+### Phase 1: The Three Questions（Linus Style）
+
+写代码前问自己：
+1.  **"这违反约束吗？"** - 检查是否违反 `constraints.md` 或 `skills/` 中的硬性规则
+2.  **"有没有更简单的方案？"** - 在满足约束的前提下，选择最简单的实现
+3.  **"我修改了不该改的文件吗？"** - 确认目录所有权（见下方 Agent 分工）
+
+### Phase 2: 约束驱动开发流程
+
+【开始任务】
+1. Read active_context.md → 确认阶段和任务编号
+2. Read constraints.md → 确认硬性约束
+3. Read skills/ → 确认技术栈
+4. （如果有）Read tdd/task-xxx.md → 确认测试要求
+
+【执行任务】
+5. Run tests → 预期失败（红）
+6. Write code → 满足约束的最简实现
+7. Run tests → 必须通过（绿）
+8. Refactor → 不违反约束的前提下优化
+
+【完成任务】
+9. Update active_context.md → 标记任务完成
+10. Commit → 遵循提交规范
+
+### Phase 3: 决策升级协议
+
+如果发现以下情况，立即停止并报告人类：
+- 约束之间存在冲突（如性能要求和安全要求矛盾）
+- 需要引入 skills/ 中未列出的 npm 包
+- 发现 active_context.md 中的信息与实际情况不符
+- 测试无法通过，且需要修改约束才能解决
+
+**报告格式：**
+【DECISION_REQUIRED】
+- 问题：[描述冲突]
+- 当前约束：[引用相关约束]
+- 可选方案：
+  A. [方案及影响]
+  B. [方案及影响]
+- 建议：[你的推荐]
+
+## 4. Module Glossary & Complexity Hotspots（模块复杂度）
+
+| 模块 (Path)               | 责任         | 复杂度   | 注意事项                                                    |
+| ----------------------- | ---------- | ----- | ------------------------------------------------------- |
+| `src/auth/`             | 认证逻辑       | 🌶️ 高 | 涉及密码加密和 Token 管理，必须复用 `lib/api.ts` 中的 `useApiRequest()` |
+| `src/components/forms/` | 表单组件       | 🟡 中  | 必须使用 React Hook Form + Zod，禁止引入新表单库                     |
+| `src/api/routes/auth/`  | 登录接口       | 🌶️ 高 | 错误信息必须统一，禁止暴露"用户不存在"等细节                                 |
+| `src/store/`            | Zustand 状态 | 🟡 中  | 禁止用 Redux，状态修改必须遵循 Flux 架构                              |
+| `src/lib/utils.ts`      | 工具函数       | 🟢 低  | **强制复用**，禁止重新实现 `formatDate` 等函数                        |
+
+## 5. Development Standards & Anti-Patterns（开发标准）
+
+✅ DOs
+- Read-Write-Verify: 编辑文件前先读取，编辑后验证语法正确性
+- Type Safety: 禁止 any，使用 unknown + 类型守卫
+- 文件所有权: 严格遵循下方 Agent 分工表
+- Git 工作流: 在独立分支工作，通过 PR 合并，禁止直接 push 到 main
+
+❌ DON'Ts (Anti-Patterns)
+- 不读上下文: 直接开始编码，导致重复劳动或违反约束
+- 技术栈漂移: 引入 skills/ 中未定义的技术（如看到用 Redux 替换 Zustand）
+- 跨目录修改: Agent-A 修改 backend/ 代码
+- 跳过测试: 不跑测试直接提交
+- 擅自决策: 遇到 [DECISION_REQUIRED] 不询问人类
+
+## 6. Agent-Specific Notes（多 Agent 分工）
+
+**根据你的身份，遵守以下边界：**
+**如果你是 Agent-A (Frontend Auth) - 通常在 Cline 中**
+- 目录所有权: src/auth/, src/components/auth/, src/hooks/auth/
+- 禁止修改: src/api/ (后端代码), src/store/ (全局状态，除非与 auth 相关)
+- 当前任务: 登录表单、Token 管理、路由守卫（见 active_context.md）
+- 当前分支: agent-a/auth-login
+- 特殊注意:
+    - Token 必须存储在 httpOnly cookie（禁止 localStorage）
+    - 必须使用 useApiRequest()，禁止直接 fetch
+
+**如果你是 Agent-B (Backend API) - 通常在 Trae 中**
+- 目录所有权: src/api/routes/auth/, src/controllers/auth/
+- 禁止修改: 前端路由逻辑、React 组件
+- 当前任务: 登录接口、Token 生成、密码加密
+- 当前分支: agent-b/api-login
+- 特殊注意:
+    - 密码必须用 bcrypt（cost factor 12）
+    - 错误响应统一为 {"error": "邮箱或密码错误"}
+
+**跨 Agent 通信:**
+- 如果修改影响其他 Agent（如 API 接口变更），在 active_context.md 的"当前阻碍"中记录
+- 禁止直接修改其他 Agent 的文件，即使是为了"修复"问题
+
+## 7. Workflows & Definition of Done（工作流）
+
+**Git 提交规范:**
+<type>(<scope>): <description> [Task-X]
+
+示例：
+feat(auth): add login form validation [Task-3]
+fix(api): handle token refresh edge case [Task-5]
+
+**Definition of Done (DoD):**
+标记任务完成前，验证：
+1. 功能: 满足 constraints.md 中的目标
+2. 约束: 未违反任何硬性约束或禁止事项
+3. 测试: 单元测试通过率 100%，覆盖率 > 80%
+4. 类型: TypeScript 无 any，严格模式无错误
+5. 上下文: 已更新 active_context.md 标记任务完成
+6. 边界: 未修改非分配目录的文件
+
+## 8. 快速参考（Quick Reference）
+
+**遇到问题时的检查清单**
+- [ ] 是否已读取 active_context.md？
+- [ ] 是否查看了 constraints.md 中的禁止事项？
+- [ ] 是否遵循了 skills/ 中的技术栈？
+- [ ] 是否运行了测试？
+- [ ] 是否修改了正确的目录？
+- [ ] 是否需要标记 [DECISION_REQUIRED]？
+
+**决策记录位置**
+技术决策记录在 docs/adr/ 目录，如需查看历史决策：
+- ADR-001: 认证方案选择 (JWT)
+- ADR-002: Token 过期策略
 ```
 
-**步骤5：更新active_context.md**
+**步骤6：更新active_context.md**
 
 ```markdown
 # 更新 active_context.md
@@ -650,7 +826,9 @@ AI可能返回：
 - [x] 人工调研技术方案
 - [x] 定义约束式规范
 - [x] AI提出方案并选择
+- [x] 生成架构决策 (docs/adr/)
 - [x] 生成AGENTS.md
+- [x] 更新上下文标记完成
 - [ ] 阶段1完成，进入阶段2
 
 ## 已通过的关键决策（ADR）
@@ -659,9 +837,16 @@ AI可能返回：
 - ✅ 数据库：PostgreSQL（已确定）
 - ✅ 认证方案：JWT（Access 15min + Refresh 7days）
 - ✅ 社交登录：V2版本再做（当前版本不做）
+- ✅ ADR-001: JWT 认证方案 (见 docs/adr/ADR-001-authentication.md)
+- ✅ ADR-002: Token 过期策略 (见 docs/adr/ADR-002-token-expiry.md)
 
 ## 当前阻碍/待决策
 - 无
+
+## 注意事项
+- AGENTS.md 已生成，所有 Agent 必须遵循其中的操作协议
+- 技术细节锁定在 skills/ 目录，禁止偏离
+- 架构决策记录在 docs/adr/ 目录，便于追溯
 ```
 
 #### 本阶段工具价值
@@ -671,7 +856,7 @@ AI可能返回：
 | 人工调研 | 获取最新信息 | AI知识有截止日期，可能错过最新最佳实践 |
 | `constraints.md` | 定义边界 | 告诉AI"做什么"和"不做什么"，不是"怎么做" |
 | `AGENTS.md` | 跨平台规范 | 不同AI工具（Trae/Cline/Dify）都能理解同一套规则 |
-| ADR | 记录决策 | 方便后续回顾为什么这样设计 |
+| `docs/adr/ADR-*.md` | 记录决策 | 记录技术选择的原因和后果 |
 
 ---
 
